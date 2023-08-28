@@ -1,23 +1,47 @@
----
-title: Flask
-description: A popular minimal server framework for Python
-tags:
-  - python
-  - flask
----
+# gpp-backend
 
-# Python Flask Example
+um backend para o aplicativo do guardinha do parque do povo
+ 
+## configuração do banco de dados local
 
-This is a [Flask](https://flask.palletsprojects.com/en/1.1.x/) app that serves a simple JSON response.
+Para executar o aplicativo, é necessário ter o postgresql instalado e configurado corretamente.
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/zUcpux)
+Primeiro, instale o postgresql
 
-## ✨ Features
+```
+sudo apt install postgresql postgresql-contrib
+```
 
-- Python
-- Flask
+Isso automaticamente criará um user padrão para o postgres, mude para ele
 
-## 💁‍♀️ How to use
+```
+sudo -i -u postgres
+```
 
-- Install Python requirements `pip install -r requirements.txt`
-- Start the server for development `python3 main.py`
+Agora para configurar o novo user
+
+```
+psql
+```
+
+Crie um outro user para acessar o banco de dados. 
+
+Aqui está como criar um super user, pois ele já tem todas as permissões necessárias
+
+```
+create role [nome do usuario] with login superuser password ['senha'];
+```
+
+Resta alterar as informações dentro do arquivo `dbconfig.ini`, colocando o seu user e senha. se não existir um bd, o programa criará um com o nome que você colocar em `database`
+
+agora rode o script de inicialização do bd
+
+```
+python3 init_db.py
+```
+
+Pronto. O bd deve ter sido criado e estar rodando. agora pode executar o backend normalmente
+
+```
+python3 app.py
+```
